@@ -1,1 +1,1 @@
-# image_recogntion_SIFT
+# image_recognition_SIFT
