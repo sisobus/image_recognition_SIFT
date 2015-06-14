@@ -39,6 +39,7 @@ def get_feature(image_filename):
     sift = cv2.SIFT()
     kp1, des1 = sift.detectAndCompute(image,None)
     np.save(numpy_saved_name,des1)
+    print numpy_saved_name + ' is created'
     return des1
 
 def get_match_count(des1,des2):
