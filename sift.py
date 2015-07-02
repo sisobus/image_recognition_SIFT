@@ -79,6 +79,7 @@ if __name__ == '__main__':
         qr_features.append(get_feature(filename))
     for filename in ql_filenames:
         ql_features.append(get_feature(filename))
+    print 'get feature complete'
 
     if not os.path.exists('out'):
         create_directory('out')
@@ -102,6 +103,20 @@ if __name__ == '__main__':
         with open('out/fb.out','w') as fp:
             for rank in rank_k:
                 fp.write(str(rank)+' ')
+    if not os.path.exists('out/fb_score_matrix.out'):
+        fb_score_matrix = [ [] for i in xrange(fbn) ]
+        for i in xrange(fbn):
+            print 'fb_'+str(i)+'_score_matrix is testing '
+            match_count = []
+            for j in xrange(fan):
+                cur_match_count = get_match_count(fb_features[i],fa_features[j])
+                match_count.append(cur_match_count)
+            fb_score_matrix[i] = match_count
+        with open('out/fb_score_matrix.out','w') as fp:
+            for i in xrange(len(fb_score_matrix)):
+                for j in xrange(len(fb_score_matrix[i])):
+                    fp.write(str(fb_score_matrix[i][j])+' ')
+                fp.write('\n')
 
     if not os.path.exists('out/qr.out'):
         rank_k = [ 0 for i in xrange(fan) ]
@@ -123,6 +138,20 @@ if __name__ == '__main__':
         with open('out/qr.out','w') as fp:
             for rank in rank_k:
                 fp.write(str(rank)+' ')
+    if not os.path.exists('out/qr_score_matrix.out'):
+        qr_score_matrix = [ [] for i in xrange(qrn) ]
+        for i in xrange(qrn):
+            print 'qr_'+str(i)+'_score_matrix is testing  '
+            match_count = []
+            for j in xrange(fan):
+                cur_match_count = get_match_count(qr_features[i],fa_features[j])
+                match_count.append(cur_match_count)
+            qr_score_matrix[i] = match_count
+        with open('out/qr_score_matrix.out','w') as fp:
+            for i in xrange(len(qr_score_matrix)):
+                for j in xrange(len(qr_score_matrix[i])):
+                    fp.write(str(qr_score_matrix[i][j])+' ')
+                fp.write('\n')
 
     if not os.path.exists('out/ql.out'):
         rank_k = [ 0 for i in xrange(fan) ]
@@ -144,6 +173,20 @@ if __name__ == '__main__':
         with open('out/ql.out','w') as fp:
             for rank in rank_k:
                 fp.write(str(rank)+' ')
+    if not os.path.exists('out/ql_score_matrix.out'):
+        ql_score_matrix = [ [] for i in xrange(qln) ]
+        for i in xrange(qln):
+            print 'ql_'+str(i)+'_score_matrix is testing  '
+            match_count = []
+            for j in xrange(fan):
+                cur_match_count = get_match_count(ql_features[i],fa_features[j])
+                match_count.append(cur_match_count)
+            ql_score_matrix[i] = match_count
+        with open('out/ql_score_matrix.out','w') as fp:
+            for i in xrange(len(ql_score_matrix)):
+                for j in xrange(len(ql_score_matrix[i])):
+                    fp.write(str(ql_score_matrix[i][j])+' ')
+                fp.write('\n')
 
     x = [ i+1 for i in xrange(fan) ]
     with open('out/fb.out','r') as fp:
